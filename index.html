@@ -98,7 +98,36 @@
       .hero p{font-size:16px}
       .row a{flex:1}
       .brands-list span{font-size:16px}
-    }
+    /* Section Title Styling */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #041e33;
+      margin-bottom: 0.75rem;
+      position: relative;
+      text-align: left;
+}
+
+    /* Gradient Wave Divider */
+    .wave-divider {
+      width: 80px;
+      height: 5px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #0d6efd, #12b76a);
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+      animation: waveGlow 4s ease-in-out infinite alternate;
+}
+
+/* Subtle wave shimmer animation */
+@keyframes waveGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(18, 183, 106, 0.45);
+  }
+}
   </style>
 </head>
 <body>
@@ -136,7 +165,8 @@
 
   <!-- Services -->
   <section id="services" class="section">
-    <h2>Services</h2>
+    <h2 class="section-title">Services</h2>
+    <div class="wave-divider"></div>
     <p class="sub">Engage as fractional leadership, project execution, or advisory.</p>
     <div class="grid">
       <div class="card">
@@ -162,8 +192,17 @@
       <div class="card">
         <h3>Customer delivery experience</h3>
         <p>“Where’s my order” reduction, promise‑date accuracy, proactive comms, and NPS lift.</p>
+        </div>
+      <div class="card">
+        <h3>CX management &amp; overhaul</h3>
+        <p>Rebuild customer experience operations, integrate feedback loops, and optimize workflows to enhance response times, satisfaction, and retention.</p>
+       </div> 
+      <div class="card">
+        <h3>Contract manufacturer audits &amp; negotiations</h3>
+        <p>Conduct factory audits, assess compliance and quality standards, and lead commercial negotiations to ensure value alignment and supply reliability.</p>
       </div>
-    </div>
+      
+      </div>
   </section>
 
   <!-- Outcomes -->
