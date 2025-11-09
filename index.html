@@ -272,61 +272,50 @@
 </section>
 
 <style>
-  #outcomes .section-sub {
-    margin: 6px 0 22px;
-    color: #6b7c8f; /* or use var(--muted) if defined */
-    font-size: 1rem;
-    line-height: 1.5;
+  /* Outcomes subheading */
+  #outcomes .section-sub{
+    margin:6px 0 22px;
+    color:#6b7c8f; /* or var(--muted) */
+    font-size:1rem;
+    line-height:1.5;
+  }
+  @media (max-width:640px){
+    #outcomes .section-sub{font-size:.95rem;margin-bottom:18px;}
   }
 
- @media (max-width:640px) {
-  #outcomes .section-sub {
-    font-size: 0.95rem;
-    margin-bottom: 18px;
+  /* Outcomes card text */
+  #outcomes .card h3{
+    color:#fff;
+    font-size:1.6rem;
+    font-weight:700;
+    margin-bottom:6px;
   }
-}
-
-/* Outcomes card text styling */
-#outcomes .card h3 {
-  color: #ffffff;
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-#outcomes .card p {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
-  /* Outcomes: scroll-reveal */
-  #outcomes .card {
-    background: linear-gradient(180deg, var(--navy-2), var(--navy));
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transform: translateY(18px);
-    opacity: 0;
-    transition: opacity .55s ease, transform .6s ease;
-    transition-delay: var(--stagger, 0ms);
+  #outcomes .card p{
+    color:rgba(255,255,255,.85);
+    font-size:1rem;
+    line-height:1.4;
   }
 
-  #outcomes .card.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  /* Outcomes: gradient + fade-up reveal */
+  #outcomes .card{
+    background:linear-gradient(180deg, var(--navy-2), var(--navy));
+    border:1px solid rgba(255,255,255,.05);
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+    transform:translateY(18px);
+    opacity:0;
+    transition:opacity .55s ease, transform .6s ease;
+    transition-delay:var(--stagger, 0ms);
   }
-
-  #outcomes .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  #outcomes .card.is-visible{
+    opacity:1;
+    transform:translateY(0);
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    #outcomes .card {
-      transition: none;
-      transform: none;
-      opacity: 1;
-    }
+  #outcomes .card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 15px rgba(0,0,0,.15);
+  }
+  @media (prefers-reduced-motion:reduce){
+    #outcomes .card{transition:none;transform:none;opacity:1;}
   }
 </style>
 
@@ -448,7 +437,7 @@
   </div>
 </section>
 
-  <!-- Footer with icons -->
+<!-- Footer with icons -->
   <footer>
     <div class="footer-inner">
       <div class="foot-left">© 2025 OpsFlo — Founded by Travis Edwards</div>
@@ -466,5 +455,36 @@
       </div>
     </div>
   </footer>
+
+  <!-- === Outcomes Fade-up Animation Script === -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('#outcomes .card');
+    if (!cards.length) return;
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      cards.forEach(c => c.classList.add('is-visible'));
+      return;
+    }
+
+    // Stagger each card slightly
+    cards.forEach((card, i) => {
+      card.style.setProperty('--stagger', `${100 + i * 80}ms`);
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    cards.forEach(card => io.observe(card));
+  });
+  </script>
+
 </body>
 </html>
